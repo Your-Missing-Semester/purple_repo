@@ -4,7 +4,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: row;
-    background-color: rgb(102,45,145);
+    background-color: rgb(195, 177, 225);
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -16,7 +16,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 3px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 3px lightgray;
 }
 
 form {
@@ -29,13 +30,15 @@ form {
 }
 
 .form_btn {
-    border-radius: 10px;
-    height: 38px;
+    border-radius: 15px;
+    height: 7vh;
     width: 25vh;
     box-shadow: 1px 2px 3px gray;
     background-color: white;
     font-size: 15px;
-    background-color: rgb(102,45,145, .75);
+    background-color: rgb(102,45,145, .7);
+    color: white;
+    border: none;
     
 }
 
@@ -46,12 +49,11 @@ form {
 }
 
 .textbox input {
-    width: 30vh;
-    height: 4vh;
-    box-shadow: 1px 2px 3px gray;
-    border-radius: 6px;
+    width: 42vh;
+    height: 7vh;
+    box-shadow: 1px 1px 3px gray;
+    border-radius: 9px;
+    background-color: rgb(211, 211, 211, .5);
+    border: none;
 }
 
-.textbox label {
-    font-size: 18px;
-}

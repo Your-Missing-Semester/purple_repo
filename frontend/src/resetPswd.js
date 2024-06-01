@@ -20,8 +20,7 @@ function Logo() {
 function Textbox({name, type, display_name}) {
     return (
         <div className = "textbox">
-            <label for = {name}>{display_name}</label>
-            <input type = {type} name = {name} id = {name}/>    
+            <input type = {type} name = {name} id = {name} placeholder = {display_name}/>    
         </div>
     );
 }
