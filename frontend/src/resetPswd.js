@@ -1,4 +1,4 @@
-import './form.css'
+import './form.css';
 function FormButton({size, display_name}) {
     return (
         <button
@@ -9,11 +9,16 @@ function FormButton({size, display_name}) {
     );
 }
 
-function Logo() {
+function Logo({size}) {
     return (
-        <div
-        className = "logo"
-        >logo goes here</div>
+        <div>
+        <img 
+            src = './careerConnectLogo.png' 
+            alt = "logo"
+            width = {size}
+            height = {size}
+        />
+        </div>
     );
 }
 
@@ -35,17 +40,17 @@ export default function ResetPasswordForm() {
                     />
                     <Textbox
                         name = {"old_password"}
-                        type = {"text"}
+                        type = {"password"}
                         display_name = {"Old Password:"}
                     />
                     <Textbox
                         name = {"new_password"}
-                        type = {"text"}
+                        type = {"password"}
                         display_name = {"New Password:"}
                     />
                     <Textbox
                         name = {"confirm_password"}
-                        type = {"text"}
+                        type = {"password"}
                         display_name = {"Confirm Password:"}
                     />
                     <FormButton
