@@ -4,7 +4,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: row;
-    background-color: #662d91;
+    background-color: rgb(102,45,145);
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -30,11 +30,13 @@ form {
 
 .form_btn {
     border-radius: 10px;
-    height: 35px;
+    height: 38px;
     width: 25vh;
     box-shadow: 1px 2px 3px gray;
     background-color: white;
     font-size: 15px;
+    background-color: rgb(102,45,145, .75);
+    
 }
 
 .logo {
@@ -47,6 +49,7 @@ form {
     width: 30vh;
     height: 4vh;
     box-shadow: 1px 2px 3px gray;
+    border-radius: 6px;
 }
 
 .textbox label {
