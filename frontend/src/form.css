@@ -36,15 +36,14 @@ form {
     box-shadow: 1px 2px 3px gray;
     background-color: white;
     font-size: 15px;
-    background-color: rgb(102,45,145, .7);
+    background-color: rgb(102,45,145, .8);
     color: white;
     border: none;
     
 }
 
 .logo {
-    width: 150px;
-    height: 150px;
+    border-radius: 40px;
 }
 
 .textbox input {
@@ -58,3 +57,6 @@ form {
     padding-left: 10px;
 }
 
+h1 {
+    font-size: 30px;
+}

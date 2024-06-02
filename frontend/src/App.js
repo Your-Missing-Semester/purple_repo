@@ -1,11 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
 import ResetPasswordForm from './resetPswd.js'
+import ResetUsernameForm from './resetUsername.js';
+
 
 function App() {
   return (
-
-      <ResetPasswordForm />
+      <ResetUsernameForm />
   );
 }
 

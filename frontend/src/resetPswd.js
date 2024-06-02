@@ -1,5 +1,5 @@
 import './form.css';
-function FormButton({size, display_name}) {
+export function FormButton({size, display_name}) {
     return (
         <button
             className = "form_btn"
@@ -9,10 +9,11 @@ function FormButton({size, display_name}) {
     );
 }
 
-function Logo({size}) {
+export function Logo({size}) {
     return (
         <div>
-        <img 
+        <img
+            className = "logo"
             src = './careerConnectLogo.png' 
             alt = "logo"
             width = {size}
@@ -22,7 +23,7 @@ function Logo({size}) {
     );
 }
 
-function Textbox({name, type, display_name}) {
+export function Textbox({name, type, display_name}) {
     return (
         <div className = "textbox">
             <input type = {type} name = {name} id = {name} placeholder = {display_name}/>    
@@ -36,12 +37,13 @@ export default function ResetPasswordForm() {
             <div className = "left_side">
                 <form>
                     <Logo
-                        size = {200}
+                        size = {100}
                     />
+                    <h1>Reset Password</h1>
                     <Textbox
-                        name = {"old_password"}
-                        type = {"password"}
-                        display_name = {"Old Password:"}
+                        name = {"email"}
+                        type = {"email"}
+                        display_name = {"Email:"}
                     />
                     <Textbox
                         name = {"new_password"}
@@ -57,9 +59,9 @@ export default function ResetPasswordForm() {
                         size = {100} 
                         display_name = {"Save Password"}
                     />
-                    
                 </form>
             </div>
+
         </div>
     )
 }
