@@ -9,14 +9,14 @@
     font-size: 25px;
     text-align:left;
   }
-  /*body{
+  body{
     background-color:#38023b;
-  }*/
+  }
   .border{
     border: 5px solid #a288e3;
     padding: 5%;
     flex-wrap: wrap;
-    background-color: #38023b;
+    background-color: #f5f3f5;
   }
   p{
     font-size:15px;
