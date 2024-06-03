@@ -4,6 +4,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: row;
+    align-items: center;
     background-color: rgb(195, 177, 225);
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
@@ -59,4 +60,16 @@ form {
 
 h1 {
     font-size: 30px;
+}
+
+.nav_bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    height: 99vh;
+    width: 50vh;
+    border-radius: 15px;
+    box-shadow: 4px 4px 10px gray;
+
 }
