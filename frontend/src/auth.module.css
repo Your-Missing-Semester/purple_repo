@@ -1,27 +1,25 @@
-.App {
+.app {
     text-align: center;
     color: #38023b;
     font-weight: bold;
     font-size: 36px;
   }
-  .App2{
+  .describeAuth{
     color: #38023b;
     font-size: 25px;
     text-align:left;
   }
-  body{
-    background-color:#38023b;
-  }
+  
   .border{
     border: 5px solid #a288e3;
     padding: 5%;
     flex-wrap: wrap;
     background-color: #f5f3f5;
   }
-  p{
+  .authP{
     font-size:15px;
   }
-  .sign_up_option:hover{
+  .signUpOption:hover{
     border:1px solid #000;
   }
   .line{
@@ -38,7 +36,7 @@
   .subheaders{
     font-size: 15px;
   }
-  input{
+  .authInput{
     width: 100%;
   }
   
@@ -54,13 +52,14 @@
     background-color:#38023b;
     color:#a288e3;
   }
-  .Signup{
+  .auth{
     display: flex;
     align-items: center;
     justify-content: center;
     /*font-size: calc(10px + 1vmin);*/
     color: black; 
     width: 100%;
+    background-color: #38023b;
   }
   .main{
     text-align: left;
