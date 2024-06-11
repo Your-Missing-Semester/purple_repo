@@ -1,15 +1,35 @@
-import './form.css'
-// import ResetPasswordForm from './resetPswd.js'
-// import ResetUsernameForm from './resetUsername.js'
-
+import './form.css';
+import {Link} from 'react-router-dom';
+export function SidebarBtn({size, name, path}) {
+    return (
+        <Link to = {path}>
+            <button
+                className = "sidebar_btn"
+                height = {size}
+                width = {size}>
+                {name}    
+            </button>
+        </Link>
+    )
+}
 export default function FormPage() {
     return (
         <div className = "border">
-            <div className = "nav_bar">
-            <h1>reset password</h1>
-            
-            </div>
+            <div className = "side_bar">
+                <SidebarBtn
+                    size = {400}
+                    name = {"Reset Password"}
+                    path = {"/reset-password-form"}
+                />
+                <SidebarBtn
+                    size = {400}
+                    name = {"Reset Username"}
+                    path = {"/reset-username-form"}
+                />
                 
+            </div>    
         </div>
+        
+
     )
 }
