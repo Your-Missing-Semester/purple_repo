@@ -1,10 +1,10 @@
 import {Logo, Textbox, FormButton} from "./resetPswd.js";
-import "./form.css";
+import FormCSS from "./form.module.css";
 
 export default function ResetUsernameForm() {
     return (
-        <div className = "border">
-            <div className = "left_side">
+        <div className = {FormCSS.border}>
+            <div className = {FormCSS.left_side}>
                 <form>
                     <Logo
                         size = {100}

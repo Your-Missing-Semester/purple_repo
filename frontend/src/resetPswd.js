@@ -1,8 +1,8 @@
-import './form.css';
+import FormCSS from './form.module.css';
 export function FormButton({size, display_name}) {
     return (
         <button
-            className = "form_btn"
+            className = {FormCSS.form_btn}
             height = {size}
             width = {size}
         >{display_name}</button>
@@ -13,7 +13,7 @@ export function Logo({size}) {
     return (
         <div>
         <img
-            className = "logo"
+            className = {FormCSS.logo}
             src = './careerConnectLogo.png' 
             alt = "logo"
             width = {size}
@@ -25,7 +25,7 @@ export function Logo({size}) {
 
 export function Textbox({name, type, display_name}) {
     return (
-        <div className = "textbox">
+        <div className = {FormCSS.textbox}>
             <input type = {type} name = {name} id = {name} placeholder = {display_name}/>    
         </div>
     );
@@ -33,8 +33,8 @@ export function Textbox({name, type, display_name}) {
 
 export default function ResetPasswordForm() {
     return (
-        <div className = "border">
-            <div className = "left_side">
+        <div className = {FormCSS.border}>
+            <div className = {FormCSS.left_side}>
                 <form>
                     <Logo
                         size = {100}

@@ -1,10 +1,10 @@
-import './form.css';
+import FormCSS from './form.module.css';
 import {Link} from 'react-router-dom';
 export function SidebarBtn({size, name, path}) {
     return (
         <Link to = {path}>
             <button
-                className = "sidebar_btn"
+                className = {FormCSS.sidebar_btn}
                 height = {size}
                 width = {size}>
                 {name}    
@@ -14,8 +14,8 @@ export function SidebarBtn({size, name, path}) {
 }
 export default function FormPage() {
     return (
-        <div className = "border">
-            <div className = "side_bar">
+        <div className = {FormCSS.border}>
+            <div className = {FormCSS.side_bar}>
                 <SidebarBtn
                     size = {400}
                     name = {"Reset Password"}
