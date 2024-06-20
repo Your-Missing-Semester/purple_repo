@@ -8,7 +8,7 @@ app.get('/', (request, response) => {
     response.send ('my roots?');
 });
 
-app.post('/signup', (request,response) => { // Sign up route, get the new user data 
+app.post('/sign-up', (request,response) => { // Sign up route, get the new user data 
     const email = request.body.email; 
     const pass = request.body.password;
     const confPass = request.body.confPass;
@@ -19,7 +19,7 @@ app.post('/signup', (request,response) => { // Sign up route, get the new user d
     console.log(confPass);
 })
 
-app.post('/signin', (request, response) => { // Sign in route, get the users data to login
+app.post('/sign-in', (request, response) => { // Sign in route, get the users data to login
     const email = request.body.email;
     const pass = request.body.password;
 

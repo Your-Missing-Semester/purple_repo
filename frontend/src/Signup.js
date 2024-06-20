@@ -9,7 +9,7 @@ function SignUp() {
   const [userConfPassword, setUserConfPassword] = useState (''); 
 
   const signUp = async (_event) => { // called when SIGN UP button is clicked
-    const response = await axios.post('/signup', {
+    const response = await axios.post('/sign-up', {
       email: userEmail,
       password: userPassword,
       confPass: userConfPassword
@@ -54,7 +54,7 @@ function SignUp() {
                 
             <input className = {styles.authInput} placeholder="Confirm your password" type = "text" name="confirmedPassword" onChange={confPassHandler}/>
           </form>
-          <p className = {styles.authP}>Already have an account? <a href="./signin" target="_blank" rel="noreferrer">LOGIN</a></p>
+          <p className = {styles.authP}>Already have an account? <a href="./sign-in" target="_blank" rel="noreferrer">LOGIN</a></p>
           <button className={classNames(styles.accountButton, styles.app, styles.mb20)} onClick={signUp}>SIGN UP</button> 
           <p className = {styles.line}><span>or sign up with</span></p>
           <a href="https://google.com" target="_blank" rel="noreferrer"><img className = {styles.signUpOption} src="google_symbol.png" alt="google" width ="10%" hieght="10%"/></a>

@@ -8,7 +8,7 @@ function SignIn() {
   const [userPassword, setUserPassword] = useState ('');
 
   const signIn = async (_event) => { // called when LOGIN button is clicked
-    const response = await axios.post('/signin', {
+    const response = await axios.post('/sign-in', {
       email: userEmail,
       password: userPassword,
     }); 
@@ -44,7 +44,7 @@ function SignIn() {
             Password</label>
             <input className={classNames(styles.authInput, styles.mb20)} placeholder="Enter your password" type = "text" onChange={passHandler}/>
           </form>
-          <p className={classNames(styles.authP, styles.mb20)}>Don't have an account yet? <a href="./signup" target="_blank" rel="noreferrer">
+          <p className={classNames(styles.authP, styles.mb20)}>Don't have an account yet? <a href="./sign-up" target="_blank" rel="noreferrer">
             SIGN UP</a></p>
           <button className={classNames(styles.accountButton, styles.app, styles.mb20)} onClick={signIn}>LOGIN</button>
           <p className = {styles.line}><span>or login with</span></p>
