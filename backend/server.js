@@ -19,7 +19,7 @@ app.post('/sign-in', (request, response) => { // Sign in route, get the users da
     
 
 app.listen(port, () =>{
-    console.log('Server is listening on port: ${port}');
+    console.log('Server is listening on port', port);
 })
 
 module.exports = app;

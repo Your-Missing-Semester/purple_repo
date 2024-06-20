@@ -4,7 +4,7 @@
   font-weight: bold;
   font-size: 36px;
 }
-.authType{
+.auth-type{
   color: #38023b;
   font-size: 25px;
   text-align:left;
@@ -26,10 +26,10 @@
   flex-wrap: wrap;
   background-color: #f5f3f5;
 }
-.authP{
+.auth-p{
   font-size:15px;
 }
-.signUpOption:hover{
+.sign-up-option:hover{
   border:1px solid #000;
 }
 .line{
@@ -46,17 +46,17 @@
 .subheaders{
   font-size: 15px;
 }
-.authInput{
+.auth-input{
   width: 100%;
 }
-.accountButton{
+.acount-button{
   background-color: #a288e3;
   color:#38023b;
   font-size: 30px;
   border: none;
   width: 100%;
 }
-.accountButton:hover{
+.acount-button:hover{
   background-color:#38023b;
   color:#a288e3;
 }
