@@ -7,7 +7,7 @@ function SignIn() {
   const [userEmail, setUserEmail] = useState (''); 
   const [userPassword, setUserPassword] = useState ('');
 
-  const handleSigninSubmit = async (_event) => { 
+  const handleSignInSubmit = async (_event) => { 
     const response = await axios.post('/sign-in', {
       email: userEmail,
       password: userPassword,
@@ -46,7 +46,7 @@ function SignIn() {
           </form>
           <p className={classNames(styles.authP, styles.mb20)}>Don't have an account yet? <a href="./sign-up" target="_blank" rel="noreferrer">
             SIGN UP</a></p>
-          <button className={classNames(styles.accountButton, styles.app, styles.mb20)} onClick={handleSigninSubmit}>LOGIN</button>
+          <button className={classNames(styles.accountButton, styles.app, styles.mb20)} onClick={handleSignInSubmit}>LOGIN</button>
           <p className = {styles.line}><span>or login with</span></p>
           <a href="https://google.com" target="_blank" rel="noreferrer"><img className = {styles.signUpOption} src="google_symbol.png" alt="google" width ="10%" hieght="10%"/></a>
           <a href="https://apple.com" target="_blank" rel="noreferrer"><img className = {styles.signUpOption} src="apple_symbol.png" alt="apple" width ="10%" hieght="10%"/></a>

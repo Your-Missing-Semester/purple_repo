@@ -1,8 +1,6 @@
 import './App.css';
 import SignIn from './components/authorization/SignIn.js';
 import SignUp from './components/authorization/SignUp.js';
-// import ResetPasswordForm from './resetPswd.js';
-// import ResetUsernameForm from './resetUsername.js';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 export default function App(){

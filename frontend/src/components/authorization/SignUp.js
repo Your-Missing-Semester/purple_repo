@@ -8,13 +8,13 @@ function SignUp() {
   const [userPassword, setUserPassword] = useState ('');
   const [userConfPassword, setUserConfPassword] = useState (''); 
 
-  const handleSignupSubmit = async (_event) => { 
+  const handleSignUpSubmit = async (_event) => { 
     const response = await axios.post('/sign-up', {
       email: userEmail,
       password: userPassword,
       confPass: userConfPassword
     });  
-    console.log("signup was successful for ", response.data)
+    console.alert("signup was successful for ", response.data)
   }
   const emailHandler = (event) => { 
     const emailVal = event.target.value 
@@ -36,7 +36,7 @@ function SignUp() {
           <header className={classNames(styles.app, styles.mb20)}>
             Start connecting today!
           </header>
-          <form onSubmit={handleSignupSubmit}>
+          <form action="">
             <header className={classNames(styles.authType, styles.mb20)}>
               Create an account</header>
 
@@ -55,7 +55,7 @@ function SignUp() {
             <input className = {styles.authInput} placeholder="Confirm your password" type = "text" name="confirmedPassword" onChange={confPassHandler}/>
           </form>
           <p className = {styles.authP}>Already have an account? <a href="./sign-in" target="_blank" rel="noreferrer">LOGIN</a></p>
-          <button className={classNames(styles.accountButton, styles.app, styles.mb20)} onClick={handleSignupSubmit}>SIGN UP</button> 
+          <button className={classNames(styles.accountButton, styles.app, styles.mb20)} onClick={handleSignUpSubmit}>SIGN UP</button> 
           <p className = {styles.line}><span>or sign up with</span></p>
           <a href="https://google.com" target="_blank" rel="noreferrer"><img className = {styles.signUpOption} src="google_symbol.png" alt="google" width ="10%" hieght="10%"/></a>
           <a href="https://apple.com" target="_blank" rel="noreferrer"><img className = {styles.signUpOption} src="apple_symbol.png" alt="apple" width ="10%" hieght="10%"/></a>
