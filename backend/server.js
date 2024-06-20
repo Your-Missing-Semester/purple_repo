@@ -1,7 +1,6 @@
 const express = require('express'); 
 const app = express();
 const port = 8080;
-const fs = require('fs');
 app.use(express.json()); 
 
 app.get('/', (request, response) => { 
@@ -9,23 +8,18 @@ app.get('/', (request, response) => {
 });
 
 app.post('/sign-up', (request,response) => { // Sign up route, get the new user data 
-    const email = request.body.email; 
-    const pass = request.body.password;
-    const confPass = request.body.confPass;
-
+    const { email, password, confPass } = request.body;
     /* TODO logic */
     console.log(email);
-    console.log(pass);
+    console.log(password);
     console.log(confPass);
 })
 
 app.post('/sign-in', (request, response) => { // Sign in route, get the users data to login
-    const email = request.body.email;
-    const pass = request.body.password;
-
+    const { email, password } = request.body;
     /* TODO logic */
     console.log(email);
-    console.log(pass);
+    console.log(password);
 })
     
 
