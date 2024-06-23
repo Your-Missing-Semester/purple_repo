@@ -4,8 +4,8 @@ import ResetPasswordForm from './resetPswd.js';
 import ResetUsernameForm from './resetUsername.js';
 import FormPage from './formPage.js';
 
-import Signup from './Signup.js';  
-import Signin from './Signin.js';
+import Signup from './components/authorization/SignUp.js';  
+import Signin from './components/authorization/SignIn.js';
 
 export default function App(){
   return (
