@@ -1,7 +1,12 @@
 const express = require('express'); 
 const app = express();
+const cors = require('cors');
 const port = 8080;
 app.use(express.json()); 
+app.use(cors());
+
+const usernameRoute = require('./routes/usernameRoute');
+app.use('/users', usernameRoute)
 
 app.get('/', (request, response) => { 
     response.send ('my roots?');
