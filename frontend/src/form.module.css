@@ -67,13 +67,9 @@ h1 {
     flex-direction: column;
     align-items: center;
     background-color: white;
-    height: 99vh;
-    width: 50vh;
+    height: 100%;
+    width: 150px;
     border-radius: 15px;
     box-shadow: 4px 4px 10px gray;
-
-}
-
-.sidebar_btn {
 
 }
