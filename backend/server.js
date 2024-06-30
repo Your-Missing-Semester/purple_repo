@@ -1,7 +1,16 @@
 const express = require('express'); 
 const app = express();
 const cors = require('cors');
+const session = require('express-session')
 const port = 8080;
+app.use(session({
+    secret: 'cooked cs major',
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        maxAge: 30000 * 60,
+    },
+}))
 app.use(express.json()); 
 app.use(cors());
 

@@ -8,6 +8,8 @@ const users = {
 };
 
 router.get('/:username', (req, res) => {
+    console.log(req.session);
+    console.log(req.session.id)
     const {username} = req.params;
     const exists = username in users;
     res.json({exists});
