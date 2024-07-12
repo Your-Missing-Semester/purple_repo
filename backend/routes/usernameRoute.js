@@ -1,28 +1,32 @@
 const express = require('express');
 const router = express.Router();
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
-router.get('/:username', (req, res) => {
-    console.log(req.session);
-    console.log(req.session.id)
-    const {username} = req.params;
-    const exists = username in users;
+
+router.post('/check-username',  async (req, res) => {
+    const {username} = req.body;
+    const findUser = await prisma.user.findUnique({
+        where: {username}
+    })
+
+    const exists = findUser !== null
     res.json({exists});
 })
 
-router.put('/:currentUsername', (req, res) => {
+router.put('/', async (req, res) => {
     const {currentUsername} = req.params;
-    const {email, username} = req.body;
+    const {email, newUsername} = req.body;
 
-    if (!(currentUsername in users)) {
-        return res.status(404).json({success: false, message: "user not found"})
-    }
-    else if (users[currentUsername].email !== email) {
-        return res.status(400).json({success: false, message: "invalid email"})
-    }
+    const updateUser = await prisma.user.update({
+        where: {
+            email
+        },
+        data: {
+            username: newUsername
+        }
 
-    const userData = users[currentUsername];
-    delete users[currentUsername];
-    users[username] = {...userData, username: username, email}
+    })
     res.json({success: true, message: "username updated successfully"});
 });
 
