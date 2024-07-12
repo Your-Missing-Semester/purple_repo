@@ -1,12 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const users = {
-    "john_doe": { id: 1, username: "john_doe", email: "john@example.com" },
-    "jane_smith": { id: 2, username: "jane_smith", email: "jane@example.com" },
-    // Add more users as needed
-};
-
 router.get('/:username', (req, res) => {
     console.log(req.session);
     console.log(req.session.id)
