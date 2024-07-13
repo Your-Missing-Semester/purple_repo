@@ -6,7 +6,9 @@ app.use(express.json());
 app.use(cors());
 
 const usernameRoute = require('./routes/usernameRoute');
+const userSessionRoute = require('./routes/userSession')
 app.use('/reset-username-form', usernameRoute)
+app.use('/user-session', userSessionRoute)
 
 app.get('/', (request, response) => { 
     response.send ('my roots?');

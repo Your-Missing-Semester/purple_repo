@@ -19,4 +19,5 @@ model User {
   lastName    String?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
+  session     String
 }
