@@ -2,10 +2,10 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const port = 8080;
+const usernameRoute = require('./routes/usernameRoute');
 app.use(express.json()); 
 app.use(cors());
 
-const usernameRoute = require('./routes/usernameRoute');
 app.use('/reset-username-form', usernameRoute)
 
 app.get('/', (request, response) => { 
