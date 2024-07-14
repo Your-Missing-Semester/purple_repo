@@ -1,20 +1,23 @@
 const express = require('express');
-const router = express.Router();
+const usernameRouter = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 
-router.post('/check-username',  async (req, res) => {
+usernameRouter.post('/check-username',  async (req, res) => {
     const {username} = req.body;
     const findUser = await prisma.user.findUnique({
         where: {username}
     })
-
-    const exists = findUser !== null
-    res.json({exists});
+    const exists = true;
+    if (findUser === null) {
+        res.status(404).json({message: 'user not found'});
+        exists = null;
+    }
+    res.json(exists)
 })
 
-router.put('/', async (req, res) => {
+usernameRouter.put('/update-user', async (req, res) => {
     const {currentUsername} = req.params;
     const {email, newUsername} = req.body;
 
