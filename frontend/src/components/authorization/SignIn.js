@@ -8,11 +8,16 @@ function SignIn() {
   const [userPassword, setUserPassword] = useState ('');
 
   const handleSignInSubmit = async (_event) => { 
+    // axious.post is throwing an error whenever it recieves 404
+    // we could catch error and handle that error
+    // server throws error, frontend catch erorr here, set state to error message, so that error shows up on UI
+    // jason might have a error state in figma
     const response = await axios.post('/sign-in', {
       email: userEmail,
       password: userPassword,
     }); 
-    console.alert("sign in was successful for ", response.data)
+    // console.alert("sign in was successful for ", response.data)
+    alert('sign in was successful for '+ response.data)
   }
   const emailHandler = (event) => { 
     const emailVal = event.target.value 
