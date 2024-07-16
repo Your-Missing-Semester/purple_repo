@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import FormCSS from "./form.module.css";
 import axios from 'axios';
+import {handleSubmit} from './handlers/handleResetUsername'
 
 
 
@@ -12,47 +13,12 @@ export default function ResetUsernameForm() {
 
     const checkUsername = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/users/${newUsername}`)
+            const response = await axios.post(`http://localhost:8080/reset-username-form/check-username/`, {username: newUsername})
             return response.data.exists;
         } catch (err) {
             console.error('error checking username: ', err)
             return false;
         }
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setMessage('');
-        const usernameExists = await checkUsername();
-        if (!email || !username || !newUsername) {
-            setMessage('fill in all required information')
-            return;
-        }
-        if (usernameExists) {
-            setMessage("username already exists")
-            return;
-        }
-        try {
-            const res = await axios.put(`http://localhost:8080/users/${username}`, {
-                email: email,
-                username: newUsername
-            });
-            if (res.data.success) {
-                setMessage('updated username successfully');
-                setUsername(newUsername);
-                setNewUsername('');
-                setUsername('');
-                setEmail('');
-            } 
-            else {
-                setMessage('failed updating username');
-            }
-        } catch (err) {
-            const {message} = err.response.data;
-            setMessage(message);
-            console.error('error updating username', err)
-        }
-    
     }
 
     return (
@@ -104,7 +70,7 @@ export default function ResetUsernameForm() {
                     </div>
                     <button
                         className = {FormCSS.form_btn}
-                        onClick = {handleSubmit}
+                        onClick = {handleSubmit()}
                         height = "100"
                         width = "100"
                         >Save Changes
