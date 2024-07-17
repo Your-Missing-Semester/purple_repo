@@ -10,9 +10,6 @@ const bcrypt = require('bcrypt')
 const session = require('express-session')
 const {PrismaSessionStore} = require('@quixo3/prisma-session-store')
 const {PrismaClient} = require('@prisma/client')
- 
-// how are we taking care of sessions.
-
 
 app.use(express.json()); 
 app.use(session({
@@ -37,7 +34,7 @@ app.get('/', (request, response) => {
 app.post('/sign-up', async (request,response) => { // Sign up route, get the new user data 
     const { email, password, confPass } = request.body;
 
-    if(!email || !password) return response.status(400).send('Username and password are missing'); // do something prettier w UI
+    if(!email || !password) return response.status(400).send('username or password are missing') // do something prettier w UI
 
     const currentUser = await prisma.user.findFirst({
         where: {
@@ -49,18 +46,36 @@ app.post('/sign-up', async (request,response) => { // Sign up route, get the new
         return response.status(400).send('user already exists')
     }
 
+    if(confPass!=password) return response.status(401).send('passwords are not matching');
+
+    function isPasswordSecure(password) {
+        const minLength = 8;  
+        const hasUpperCase = /[A-Z]/.test(password);  
+        const hasLowerCase = /[a-z]/.test(password); 
+        const hasDigit = /\d/.test(password);  
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password); 
+
+        return (
+            password.length >= minLength && hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar
+        );
+    }
+    
+    if(!isPasswordSecure(password)){
+        return response.status(400).send('password is not secure')
+    }
+    
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
     const user = await prisma.user.create({
-        data: { // confused what are we filling all the other values with?...
+        data: { 
             email: email,
             password: hashedPassword,
             username: email
         }
     })
-    // where do I go from here?
-    // res.send(what?)
+    /* TODO */
+    response.redirect('/')
 })
 
 app.post('/sign-in', async (request, response) => { // Sign in route, get the users data to login
@@ -78,15 +93,13 @@ app.post('/sign-in', async (request, response) => { // Sign in route, get the us
         const passwordMatch = await bcrypt.compare(password, currentUser.password)
 
        if(passwordMatch){
-            // where are they redirected?
-            // have a home page / landing page / user account page
-            response.redirect('/') // how to redirect to home page
+            /* TODO */
+            response.redirect('/') 
        }else{
-            return response.status(400).send('incorrect password!')
-            // how to handle this correctly. Display error prettier
+            return response.status(400).send('invalid email or password')
        }
     }else{
-        response.redirect('/sign-up')
+        return response.status(400).send('invalid email or password')
     }
 })
     

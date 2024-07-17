@@ -4,20 +4,28 @@ import axios from 'axios';
 import {useState} from 'react';
 
 function SignIn() {
+  
   const [userEmail, setUserEmail] = useState (''); 
   const [userPassword, setUserPassword] = useState ('');
+  const [error, setError] = useState('');
 
   const handleSignInSubmit = async (_event) => { 
     // axious.post is throwing an error whenever it recieves 404
     // we could catch error and handle that error
     // server throws error, frontend catch erorr here, set state to error message, so that error shows up on UI
     // jason might have a error state in figma
-    const response = await axios.post('/sign-in', {
-      email: userEmail,
-      password: userPassword,
-    }); 
-    // console.alert("sign in was successful for ", response.data)
-    alert('sign in was successful for '+ response.data)
+    try{
+      const response = await axios.post('/sign-in', {
+        email: userEmail,
+        password: userPassword,
+      }); 
+      // console.alert("sign in was successful for ", response.data)
+      alert("Successful login! User dashboard in progress")
+      setError('');
+      window.location.href = '/';
+    }catch(error){
+      setError('Invalid email or password, please try again')
+    }
   }
   const emailHandler = (event) => { 
     const emailVal = event.target.value 
@@ -47,11 +55,13 @@ function SignIn() {
               
             <label className={classNames(styles.subheaders, styles.mb20)}>
             Password</label>
-            <input className={classNames(styles["auth-input"], styles.mb20)} placeholder="Enter your password" type = "text" onChange={passHandler}/>
+            <input className={classNames(styles["auth-input"])} placeholder="Enter your password" type = "password" onChange={passHandler}/>
+            <p className={classNames(styles["auth-p"], styles.right)}><a href="./reset-password-form" >Forgot Password?</a></p>
+            {error && <p className={classNames(styles["auth-error"])} >{error}</p>}
           </form>
+          <button className={classNames(styles["acount-button"], styles.app)} onClick={handleSignInSubmit}>LOGIN</button>
           <p className={classNames(styles["auth-p"], styles.mb20)}>Don't have an account yet? <a href="./sign-up" target="_blank" rel="noreferrer">
             SIGN UP</a></p>
-          <button className={classNames(styles["acount-button"], styles.app, styles.mb20)} onClick={handleSignInSubmit}>LOGIN</button>
           <p className = {styles.line}><span>or login with</span></p>
           <a href="https://google.com" target="_blank" rel="noreferrer"><img className = {styles["sign-up-option"]} src="google_symbol.png" alt="google" width ="10%" hieght="10%"/></a>
           <a href="https://apple.com" target="_blank" rel="noreferrer"><img className = {styles["sign-up-option"]} src="apple_symbol.png" alt="apple" width ="10%" hieght="10%"/></a>
