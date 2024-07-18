@@ -12,7 +12,7 @@ export default function ResetUsernameForm() {
 
     const checkUsername = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/users/${newUsername}`)
+            const response = await axios.get(`http://localhost:8080/reset-username-form/check-username`)
             return response.data.exists;
         } catch (err) {
             console.error('error checking username: ', err)
@@ -25,7 +25,7 @@ export default function ResetUsernameForm() {
         setMessage('');
         const usernameExists = await checkUsername();
         if (!email || !username || !newUsername) {
-            setMessage('fill in all required information')
+            setMessage('fill in all required fields')
             return;
         }
         if (usernameExists) {
@@ -33,9 +33,10 @@ export default function ResetUsernameForm() {
             return;
         }
         try {
-            const res = await axios.put(`http://localhost:8080/users/${username}`, {
+            const res = await axios.put(`http://localhost:8080/reset-username-form/update-user/`, {
                 email: email,
-                username: newUsername
+                username: username,
+                newUsername: newUsername
             });
             if (res.data.success) {
                 setMessage('updated username successfully');
