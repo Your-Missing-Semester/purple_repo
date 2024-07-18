@@ -25,7 +25,7 @@ function Footer() {
             <a href="https://twitter.com/?lang=en" className={classNames(styles['icon-twitter'])}>
               <img src="./x-twitter-logo.png" alt="X (prev. Twitter)"/>
             </a>
-            <a href="https://www.instagram.com/" className={classNames(styles['icon-instagram'])}>
+           <a href="https://www.instagram.com/" className={classNames(styles['icon-instagram'])}>
               <img src="./instagram-logo.png" alt="Instagram"/>
             </a>
           </div>
