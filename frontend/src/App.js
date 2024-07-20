@@ -3,6 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import ResetPasswordForm from './resetPswd.js';
 import ResetUsernameForm from './resetUsername.js';
 import FormPage from './formPage.js';
+import changePasswordRouter from '../../backend/routes/passwordRoute.js';
 
 import Signup from './components/authorization/SignUp.js';  
 import Signin from './components/authorization/SignIn.js';
@@ -16,6 +17,7 @@ export default function App(){
       <Route path = "/sign-in" element = {<Signin/>} ></Route>
       <Route path = "/reset-username-form" element = {<ResetUsernameForm/>} ></Route>
       <Route path = "/reset-password-form" element = {<ResetPasswordForm/>} ></Route>
+      <Route path = "/change-password-router" element = {<changePasswordRouter/>} ></Route>
     </Routes>
     </>
   );
