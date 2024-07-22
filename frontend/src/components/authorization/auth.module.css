@@ -18,12 +18,7 @@
 .auth-error{
   color:red;
   font-size: 15px;
-  width: 99%;
-  border:2px solid red;
   flex-wrap: wrap;
-  text-align: center; 
-  padding: 1%;
-  background-color: #ffdddd;
   animation: flash 1s ease-out;
 }
 .sign-up-error{
