@@ -10,16 +10,11 @@ function SignIn() {
   const [error, setError] = useState('');
 
   const handleSignInSubmit = async (_event) => { 
-    // axious.post is throwing an error whenever it recieves 404
-    // we could catch error and handle that error
-    // server throws error, frontend catch erorr here, set state to error message, so that error shows up on UI
-    // jason might have a error state in figma
     try{
       const response = await axios.post('/sign-in', {
         email: userEmail,
         password: userPassword,
       }); 
-      // console.alert("sign in was successful for ", response.data)
       alert("Successful login! User dashboard in progress")
       setError('');
       window.location.href = '/';
@@ -57,7 +52,7 @@ function SignIn() {
             Password</label>
             <input className={classNames(styles["auth-input"])} placeholder="Enter your password" type = "password" onChange={passHandler}/>
             <p className={classNames(styles["auth-p"], styles.right)}><a href="./reset-password-form" >Forgot Password?</a></p>
-            {error && <p className={classNames(styles["auth-error"])} >{error}</p>}
+            {error && <p className={classNames(styles["auth-error"])} >&#9888; {error}</p>}
           </form>
           <button className={classNames(styles["acount-button"], styles.app)} onClick={handleSignInSubmit}>LOGIN</button>
           <p className={classNames(styles["auth-p"], styles.mb20)}>Don't have an account yet? <a href="./sign-up" target="_blank" rel="noreferrer">
