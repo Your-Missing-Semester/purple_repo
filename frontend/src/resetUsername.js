@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import FormCSS from "./form.module.css";
 import axios from 'axios';
 
@@ -10,26 +10,11 @@ export default function ResetUsernameForm() {
     const [newUsername, setNewUsername] = useState('');
     const [message, setMessage] = useState('');
 
-    const checkUsername = async () => {
-        try {
-            const response = await axios.get(`http://localhost:8080/reset-username-form/check-username`)
-            return response.data.exists;
-        } catch (err) {
-            console.error('error checking username: ', err)
-            return false;
-        }
-    }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage('');
-        const usernameExists = await checkUsername();
         if (!email || !username || !newUsername) {
             setMessage('fill in all required fields')
-            return;
-        }
-        if (usernameExists) {
-            setMessage("username already exists")
             return;
         }
         try {
@@ -38,22 +23,34 @@ export default function ResetUsernameForm() {
                 username: username,
                 newUsername: newUsername
             });
-            if (res.data.success) {
+
+            if (res.data.success === true) {
                 setMessage('updated username successfully');
-                setUsername(newUsername);
                 setNewUsername('');
                 setUsername('');
                 setEmail('');
-            } 
-            else {
-                setMessage('failed updating username');
+                return;
             }
         } catch (err) {
-            const {message} = err.response.data;
-            setMessage(message);
-            console.error('error updating username', err)
-        }
-    
+            if (err.response) {
+                if (err.response.data.exists) {
+                    setMessage("username already exists")
+                    return;
+                }
+                else if (err.response.status === 400) {
+                    setMessage('incorrect username entered')
+                    return;
+                }
+                else if (err.response.status === 404)  {
+                    setMessage('incorrect email entered')
+                    return;
+                }
+            } else {
+                setMessage('error updating username');
+                console.error('error updating username', err.message)
+            }
+            
+        };
     }
 
     return (

@@ -2,11 +2,11 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const port = 8080;
-const usernameRoute = require('./routes/usernameRoute');
+const usernameRouter = require('./routes/usernameRoute');
 app.use(express.json()); 
-app.use(cors());
+app.use(cors({ origin:'http://localhost:3000'}));
 
-app.use('/reset-username-form', usernameRoute)
+app.use('/reset-username-form', usernameRouter)
 
 app.get('/', (request, response) => { 
     response.send ('my roots?');
