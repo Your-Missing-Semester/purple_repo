@@ -35,11 +35,11 @@ export default function ResetPasswordForm() {
     return (
         <div className = {FormCSS.border}>
             <div className = {FormCSS.left_side}>
-                <form>
+                <form className = {FormCSS.form_2}>
                     <Logo
                         size = {100}
                     />
-                    <h1>Reset Password</h1>
+                    <h1 className = {FormCSS.form_h1}>Reset Password</h1>
                     <Textbox
                         name = {"email"}
                         type = {"email"}
@@ -65,5 +65,3 @@ export default function ResetPasswordForm() {
         </div>
     )
 }
-
-
