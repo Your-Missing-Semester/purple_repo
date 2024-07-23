@@ -65,5 +65,3 @@ export default function ResetPasswordForm() {
         </div>
     )
 }
-
-
