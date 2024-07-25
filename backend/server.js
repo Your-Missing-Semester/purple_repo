@@ -11,6 +11,9 @@ const bcrypt = require('bcrypt')
 const session = require('express-session')
 const {PrismaSessionStore} = require('@quixo3/prisma-session-store')
 const {PrismaClient} = require('@prisma/client')
+const usernameRouter = require('./routes/usernameRoute');
+app.use(cors({ origin:'http://localhost:3000'}));
+app.use('/reset-username-form', usernameRouter)
 
 app.use(express.json()); 
 app.use(session({
@@ -27,6 +30,7 @@ app.use(session({
         }
     )
 }))
+
 
 app.get('/', (request, response) => { 
     response.send ('my roots?');

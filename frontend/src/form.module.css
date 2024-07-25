@@ -21,7 +21,7 @@
     box-shadow: 2px 2px 5px gray;
 }
 
-.form_2 {
+.form_2, .form_1 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -73,5 +73,3 @@
     box-shadow: 4px 4px 10px gray;
 
 }
-
-.sidebar_btn {
