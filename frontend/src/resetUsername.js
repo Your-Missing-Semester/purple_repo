@@ -56,7 +56,7 @@ export default function ResetUsernameForm() {
     return (
         <div className = {FormCSS.border}>
             <div className = {FormCSS.left_side}>
-                <form>
+                <form className = {FormCSS.form_1}>
                     <div>
                     <img
                         className = {FormCSS.logo}
@@ -66,7 +66,7 @@ export default function ResetUsernameForm() {
                         height = "100"
                     />
                     </div>
-                    <h1>Change Username</h1>
+                    <h1 className = {FormCSS.form_h1}>Change Username</h1>
                     <div className = {FormCSS.textbox}>
                         <input 
                             type = "email"
