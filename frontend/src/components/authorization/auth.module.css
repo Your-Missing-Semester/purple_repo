@@ -4,6 +4,30 @@
   font-weight: bold;
   font-size: 36px;
 }
+@keyframes flash {
+  50% { background-color: red }
+  50% { opacity: 1; }
+}
+.toggle{
+  width: 8%;
+  margin: 0px;
+}
+.full-width{
+  width: 100%;
+}
+.auth-error{
+  color:red;
+  font-size: 15px;
+  flex-wrap: wrap;
+  animation: flash 1s ease-out;
+}
+.sign-up-error{
+  margin-top: 0px;
+  border: none;
+  text-align: left;
+  padding: 0%;
+  background-color: #f5f3f5;
+}
 .auth-type{
   color: #38023b;
   font-size: 25px;
@@ -18,7 +42,11 @@
   margin-bottom: 20px;
 }
 .mt20{
+  display: inline-block;
   margin-top: 20px;
+}
+.margin0{
+  margin:0px;
 }
 .border{
   border: 5px solid #a288e3;
@@ -28,6 +56,15 @@
 }
 .auth-p{
   font-size:15px;
+}
+.left{
+  text-align: left;
+  display:inline-block;
+  flex-wrap: wrap;
+}
+.right{
+  text-align: right; 
+
 }
 .sign-up-option:hover{
   border:1px solid #000;
@@ -116,4 +153,3 @@
     transform: rotate(360deg);
   }
 }
-  
