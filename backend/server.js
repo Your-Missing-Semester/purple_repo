@@ -21,7 +21,7 @@ app.post('/sign-up', (request,response) => { // Sign up route, get the new user 
     /* TODO logic */
 })
 
-app.post('/sign-in', (request, response) => { // Sign in route, get the users data to login
+app.post('/sign-in', sessionMiddleware, (request, response) => { // Sign in route, get the users data to login
     const { email, password } = request.body;
     /* TODO logic */
 })
