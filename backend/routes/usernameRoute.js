@@ -32,4 +32,4 @@ usernameRouter.put('/', async (req, res) => {
     res.json({success: true, message: "username updated successfully"});
 });
 
-module.exports = router;
+module.exports = usernameRouter;
