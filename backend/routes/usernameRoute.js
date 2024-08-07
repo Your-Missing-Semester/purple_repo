@@ -4,32 +4,51 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const {authenticateSession} = require('./userSession.js')
 
-usernameRouter.use(authenticateSession);
-
-usernameRouter.post('/check-username',  async (req, res) => {
-    const {username} = req.body;
-    const findUser = await prisma.user.findUnique({
-        where: {username}
-    })
-
-    const exists = findUser !== null
-    res.json({exists});
-})
-
-usernameRouter.put('/', async (req, res) => {
-    const {currentUsername} = req.params;
-    const {email, newUsername} = req.body;
-
-    const updateUser = await prisma.user.update({
-        where: {
-            email
-        },
-        data: {
-            username: newUsername
+const checkUsernameExists = async (req, res, next) => {
+    const {newUsername} = req.body;
+    try {
+        const findUsername = await prisma.user.findUnique({
+            where: {username: newUsername}
+        });
+        if (findUsername) {
+            return res.status(409).json({exists: true, message: 'username already exists'});
         }
+        next();
+    } catch (error) {
+        console.error("error checking if username exists", error);
+        return res.status(500).json({message: "user not found", error: error.message});
+    }
+}
 
-    })
-    res.json({success: true, message: "username updated successfully"});
+usernameRouter.put('/update-user', authenticateSession, checkUsernameExists, async (req, res) => {
+    const {email, username, newUsername} = req.body;
+    try {
+        const user = await prisma.user.findUnique({
+            where: {email}
+        })
+        if (!user) {
+            return res.status(404).json({message: "wrong email"});
+            
+        }
+      
+        if (username !== user.username) {
+            return res.status(400).json({message: "wrong username"});
+            
+        }
+        const updateUser = await prisma.user.update({
+            where: {
+                email
+            },
+            data: {
+                username: newUsername
+            }
+    
+        })
+        return res.json({success: true, message: "username updated successfully"});
+    } catch (error) {
+        console.error("internal server error");
+        res.status(500).json({message: "error updating username", error: error.message});
+    }
 });
 
 module.exports = usernameRouter;

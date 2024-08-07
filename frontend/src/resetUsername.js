@@ -1,9 +1,6 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import FormCSS from "./form.module.css";
 import axios from 'axios';
-import {handleSubmit} from './handlers/handleResetUsername'
-
-
 
 export default function ResetUsernameForm() {
     const [email, setEmail] = useState('');
@@ -11,20 +8,53 @@ export default function ResetUsernameForm() {
     const [newUsername, setNewUsername] = useState('');
     const [message, setMessage] = useState('');
 
-    const checkUsername = async () => {
-        try {
-            const response = await axios.post(`http://localhost:8080/reset-username-form/check-username/`, {username: newUsername})
-            return response.data.exists;
-        } catch (err) {
-            console.error('error checking username: ', err)
-            return false;
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setMessage('');
+        if (!email || !username || !newUsername) {
+            setMessage('fill in all required fields')
+            return;
         }
+        try {
+            const res = await axios.put(`http://localhost:8080/reset-username-form/update-user/`, {
+                email: email,
+                username: username,
+                newUsername: newUsername
+            });
+
+            if (res.data.success === true) {
+                setMessage('updated username successfully');
+                setNewUsername('');
+                setUsername('');
+                setEmail('');
+                return;
+            }
+        } catch (err) {
+            if (err.response) {
+                if (err.response.data.exists) {
+                    setMessage("username already exists")
+                    return;
+                }
+                else if (err.response.status === 400) {
+                    setMessage('incorrect username entered')
+                    return;
+                }
+                else if (err.response.status === 404)  {
+                    setMessage('incorrect email entered')
+                    return;
+                }
+            } else {
+                setMessage('error updating username');
+                console.error('error updating username', err.message)
+            }
+            
+        };
     }
 
     return (
         <div className = {FormCSS.border}>
             <div className = {FormCSS.left_side}>
-                <form>
+                <form className = {FormCSS.form_1}>
                     <div>
                     <img
                         className = {FormCSS.logo}
@@ -34,7 +64,7 @@ export default function ResetUsernameForm() {
                         height = "100"
                     />
                     </div>
-                    <h1>Change Username</h1>
+                    <h1 className = {FormCSS.form_h1}>Change Username</h1>
                     <div className = {FormCSS.textbox}>
                         <input 
                             type = "email"
