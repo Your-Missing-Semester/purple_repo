@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV !== 'production') { // can load .env file while server isn't in production mode
     require('dotenv').config();
 }
+
 const express = require('express'); 
 const app = express();
 const cors = require('cors');
@@ -11,6 +12,7 @@ const port = 8080;
 const {authenticateSession, userSession, userSessionRouter} = require('./routes/userSession.js');
 const usernameRouter = require('./routes/usernameRoute');
 const authHelper = require('./authHelper')
+import {createSession} from './handlers/createSession.js';
 
 app.use(express.json()); 
 app.use(cors({
@@ -21,54 +23,7 @@ app.use('/reset-username-form', usernameRouter)
 app.use('/user-session', userSessionRouter)
 app.use(userSession)
 
-app.post('/sign-in', async (request, response) => { // Sign in route, get the users data to login
-    const { email, password } = request.body;
-
-    if(!email || !password) return response.status(400).send('Username and password are missing');
-
-    try {
-        const user = await prisma.user.findUnique({
-            where: {email}
-        });
-        if (user) {
-            const passwordMatch = await bcrypt.compare(password, currentUser.password)
-    
-           if (passwordMatch) {
-                /* TODO */
-                request.session.user = user.id
-           }
-           else {
-                return response.status(400).send('invalid email or password')
-           }
-        }else {
-            return response.status(404).json({message: "user not found"}) 
-        }
-        
-        try {
-            const session = await prisma.session.create ({
-                data: {
-                    id: user.id,
-                    sid: request.session.id,
-                    expiresAt: request.session.cookie.expires
-                }
-            });
-
-        } catch (err) {
-            console.error(err)
-        }
-        return response.status(200).json({message: "signed in successfully"})
-    } catch (err) {
-        if (err.response) {
-            if (err.response.data.status === 404) {
-                return err.response.data.message
-            }
-        }
-        console.error(err)
-        return response.status(400).json({err, message: "bad request"});
-    }
-});
-
-
+app.post('/sign-in', createSession);
 
 app.get('/', authenticateSession, async (request, response) => { 
     // response.send ('my roots?');
