@@ -70,7 +70,6 @@ const authenticateSession = ( async (req, res, next) => {
             return res.status(400).json('error authenticating request');
         }
     }
-    
 });
 
 module.exports = {

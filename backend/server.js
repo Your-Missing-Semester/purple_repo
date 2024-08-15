@@ -11,14 +11,16 @@ const port = 8080;
 const {authenticateSession, userSession, userSessionRouter} = require('./routes/userSession.js');
 const usernameRouter = require('./routes/usernameRoute');
 const authHelper = require('./authHelper')
+const {searchBarRouter} = require('./routes/searchUsers.js');
 
 app.use(express.json()); 
 app.use(cors({
-    origin: 'http://localhost:3000/',
+    origin: 'http://localhost:3000',
     credentials: true
   }));
 app.use('/reset-username-form', usernameRouter)
 app.use('/user-session', userSessionRouter)
+app.use('/search-bar', searchBarRouter)
 app.use(userSession)
 
 app.post('/sign-in', async (request, response) => { // Sign in route, get the users data to login
