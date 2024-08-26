@@ -14,13 +14,13 @@ const loginHandler = ( async (request, response) => {
         if (!user) {
             return response.status(404).json({message: "user not found"}) 
         }
-        // const passwordMatch = await bcrypt.compare(password, user.password)
-        // if (passwordMatch) {
-        //     request.session.user = user.id
-        // }
-        // else {
-        //     return response.status(400).send('invalid email or password')
-        // }
+        const passwordMatch = await bcrypt.compare(password, user.password)
+        if (passwordMatch) {
+            request.session.user = user.id
+        }
+        else {
+            return response.status(400).send('invalid email or password')
+        }
         request.session.user = user.id
         
         const session = await prisma.session.create ({

@@ -5,7 +5,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const userSessionRouter = express.Router();
 
-const ONE_MIN = 86400000 / 24 / 60 * 2;
+const ONE_DAY = 86400000;
 const userSession = (session({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
@@ -13,12 +13,12 @@ const userSession = (session({
     cookie: {
         secure: false,
         httpOnly: true,
-        maxAge: ONE_MIN
+        maxAge: ONE_DAY
     },
     store: new PrismaSessionStore(
         prisma,
         {
-            checkPeriod: 2 * 60 * 1000,  //ms
+            checkPeriod: 2 * 60 * 1000,  // 2 mins
             dbRecordIdIsSessionId: true,
             dbRecordIdFunction: undefined,
         },

@@ -25,7 +25,6 @@ app.use('/reset-username-form', usernameRouter);
 app.use('/user-session', userSessionRouter);
 app.use(userSession);
 app.use(cookieParser(process.env.SESSION_SECRET));
-
 app.get('/test',authenticateSession, async (req, res) => {
     return res.json({message: "checked cookie, all clear"})
 })
