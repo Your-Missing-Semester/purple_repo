@@ -12,22 +12,28 @@ const port = 8080;
 const {authenticateSession, userSession, userSessionRouter} = require('./routes/userSession.js');
 const usernameRouter = require('./routes/usernameRoute');
 const authHelper = require('./authHelper')
-import {createSession} from './handlers/createSession.js';
+const cookieParser = require('cookie-parser')
+const {loginHandler} = require('./handlers/createSession.js');
 
 app.use(express.json()); 
 app.use(cors({
-    origin: 'http://localhost:3000/',
+    origin: 'http://localhost:3000',
     credentials: true
   }));
-app.use('/reset-username-form', usernameRouter)
-app.use('/user-session', userSessionRouter)
-app.use(userSession)
 
-app.post('/sign-in', createSession);
+app.use('/reset-username-form', usernameRouter);
+app.use('/user-session', userSessionRouter);
+app.use(userSession);
+app.use(cookieParser(process.env.SESSION_SECRET));
+
+app.get('/test',authenticateSession, async (req, res) => {
+    return res.json({message: "checked cookie, all clear"})
+})
+app.post('/sign-in', loginHandler);
 
 app.get('/', authenticateSession, async (request, response) => { 
     // response.send ('my roots?');
-    return response.status(200).json({userID: request.session.user})
+    return response.status(200).json({cookie})
 });
 
 app.post('/sign-up', async (request,response) => { 

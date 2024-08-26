@@ -5,7 +5,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const userSessionRouter = express.Router();
 
-const ONE_DAY = 86400000;
+const ONE_MIN = 86400000 / 24 / 60 * 2;
 const userSession = (session({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
@@ -13,7 +13,7 @@ const userSession = (session({
     cookie: {
         secure: false,
         httpOnly: true,
-        maxAge: ONE_DAY
+        maxAge: ONE_MIN
     },
     store: new PrismaSessionStore(
         prisma,
@@ -27,33 +27,18 @@ const userSession = (session({
 
 const authenticateSession = ( async (req, res, next) => {
     if (!req.session || !req.session.user) {
-        return res.status(401).json({message: "not authenticated"})
-    }
-    if (req.session.cookie.expires && req.session.cookie.expires < Date.now()) {
-        req.session.destroy()
-        return res.status(401).json({message: 'session expired'})
+        return res.status(401).json({message: "please login"})
     }
 
-    const userID = req.session.user;
-    try {
-        const session = await prisma.session.findUnique({
-            where: {id: userID}
-        });
-        const user = await prisma.user.findUnique({
-            where: {id: userID}
-        });
-        if (!session || !user) {
-            return res.status(404).json({message: 'unauthenticated'});
-        }
+    const sid = req.signedCookies['connect.sid']
 
-        next();
-    } catch (err) {
-        if (err.res) {
-            return err.res.data.message;
-        } else {
-            return res.status(400).json('error authenticating request');
-        }
+    if (!sid) {
+        return res.status(404).json({message: "unauthenticated"});
     }
+    if (sid !== req.session.id) {
+        return res.status(404).json({message: "unauthenticated"});
+    }
+    next()
 });
 
 module.exports = {

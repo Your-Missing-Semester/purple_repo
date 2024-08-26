@@ -3,7 +3,7 @@ const usernameRouter = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const {authenticateSession} = require('./userSession.js')
-import {updateUser} from '../handlers/updateUser.js';
+const {updateUser} = require('../handlers/updateUser.js');
 
 const checkUsernameExists = async (req, res, next) => {
     const {newUsername} = req.body;
