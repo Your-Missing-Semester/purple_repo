@@ -31,7 +31,6 @@ const authenticateSession = ( async (req, res, next) => {
     }
 
     const sid = req.signedCookies['connect.sid']
-
     if (!sid) {
         return res.status(404).json({message: "unauthenticated"});
     }

@@ -36,7 +36,6 @@ const loginHandler = ( async (request, response) => {
         if (err.response) {
             return err.response.data.message
         }
-        console.log(err)
         return response.status(400).json({err, message: "bad request"});
     }
 });
