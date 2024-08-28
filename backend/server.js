@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== 'production') { // can load .env file while server 
     require('dotenv').config();
 }
 const express = require('express'); 
+const path = require('path');
 const app = express();
 const cors = require('cors');
 const bcrypt = require('bcrypt')
@@ -14,6 +15,7 @@ const authHelper = require('./authHelper')
 const {searchBarRouter} = require('./routes/searchUsers.js');
 
 app.use(express.json()); 
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
@@ -114,7 +116,11 @@ app.post('/sign-up', async (request,response) => {
     return response.status(200).send('sign up successful') 
 })
 
-app.listen(port, () =>{
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+
+app.listen(port, () => {
     console.log('Server is listening on port', port);
 })
 
