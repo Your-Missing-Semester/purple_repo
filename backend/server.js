@@ -9,10 +9,10 @@ const bcrypt = require('bcrypt')
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const port = 8080;
-const {authenticateSession, userSession, userSessionRouter} = require('./routes/userSession.js');
+// const {authenticateSession, userSession, userSessionRouter} = require('./routes/userSession.js');
 const usernameRouter = require('./routes/usernameRoute');
 const authHelper = require('./authHelper')
-const {searchBarRouter} = require('./routes/searchUsers.js');
+// const {searchBarRouter} = require('./routes/searchUsers.js');
 
 app.use(express.json()); 
 app.use(express.static(path.join(__dirname, 'build')));
@@ -21,9 +21,9 @@ app.use(cors({
     credentials: true
   }));
 app.use('/reset-username-form', usernameRouter)
-app.use('/user-session', userSessionRouter)
-app.use('/search-bar', searchBarRouter)
-app.use(userSession)
+// app.use('/user-session', userSessionRouter)
+// app.use('/search-bar', searchBarRouter)
+// app.use(userSession)
 
 app.post('/sign-in', async (request, response) => { // Sign in route, get the users data to login
     const { email, password } = request.body;
@@ -74,47 +74,47 @@ app.post('/sign-in', async (request, response) => { // Sign in route, get the us
 
 
 
-app.get('/', authenticateSession, async (request, response) => { 
-    // response.send ('my roots?');
-    return response.status(200).json({userID: request.session.user})
-});
+// app.get('/', authenticateSession, async (request, response) => { 
+//     // response.send ('my roots?');
+//     return response.status(200).json({userID: request.session.user})
+// });
 
-app.post('/sign-up', async (request,response) => { 
-    const { email, password, confPass } = request.body;
+// app.post('/sign-up', async (request,response) => { 
+//     const { email, password, confPass } = request.body;
 
-    if(!email || !password) {
-        return response.status(400).send('username or password are missing') // do something prettier w UI
-    }
+//     if(!email || !password) {
+//         return response.status(400).send('username or password are missing') // do something prettier w UI
+//     }
 
-    const currentUser = await prisma.user.findFirst({
-        where: {
-            email
-        },
-    })
+//     const currentUser = await prisma.user.findFirst({
+//         where: {
+//             email
+//         },
+//     })
 
-    if(currentUser){
-        return response.status(400).send('user already exists')
-    }
+//     if(currentUser){
+//         return response.status(400).send('user already exists')
+//     }
 
-    if(confPass!=password) return response.status(401).send('passwords are not matching');
+//     if(confPass!=password) return response.status(401).send('passwords are not matching');
     
-    if(!authHelper.isPasswordSecure(password)){
-        return response.status(400).send('password is not secure')
-    }
+//     if(!authHelper.isPasswordSecure(password)){
+//         return response.status(400).send('password is not secure')
+//     }
 
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(password, salt)
+//     const salt = await bcrypt.genSalt(10)
+//     const hashedPassword = await bcrypt.hash(password, salt)
 
-    const user = await prisma.user.create({
-        data: { 
-            email: email,
-            password: hashedPassword,
-            username: email
-        }
-    })
-    /* TODO */
-    return response.status(200).send('sign up successful') 
-})
+//     const user = await prisma.user.create({
+//         data: { 
+//             email: email,
+//             password: hashedPassword,
+//             username: email
+//         }
+//     })
+//     /* TODO */
+//     return response.status(200).send('sign up successful') 
+// })
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
