@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== 'production') { // can load .env file while server 
 const express = require('express'); 
 const path = require('path');
 const app = express();
+const path = require('path');
 const cors = require('cors');
 const bcrypt = require('bcrypt')
 const { PrismaClient } = require("@prisma/client");
@@ -20,6 +21,7 @@ app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
   }));
+app.use(express.static(path.join(__dirname, 'build')));
 app.use('/reset-username-form', usernameRouter)
 app.use('/user-session', userSessionRouter)
 app.use('/search-bar', searchBarRouter)
