@@ -12,7 +12,7 @@ import NavBar from './components/LandingPage/NavBar.js';
 import Footer from './components/LandingPage/Footer.js'; 
 import LandingPage from './components/LandingPage/LandingPage.js'; 
 import './components/LandingPage/LandingPage.module.css'; 
-import HomePage from 'frontend/src/components/homePage/homePage.js';
+import HomePage from './components/homePage/homePage.js';
 
 export default function App() {
   return (

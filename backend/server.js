@@ -4,7 +4,6 @@ if (process.env.NODE_ENV !== 'production') { // can load .env file while server 
 const express = require('express'); 
 const path = require('path');
 const app = express();
-const path = require('path');
 const cors = require('cors');
 const bcrypt = require('bcrypt')
 const { PrismaClient } = require("@prisma/client");
