@@ -2,6 +2,7 @@ const express = require('express');
 const usernameRouter = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const {authenticateSession} = require('./userSession.js')
 
 const checkUsernameExists = async (req, res, next) => {
     const {newUsername} = req.body;
@@ -19,7 +20,7 @@ const checkUsernameExists = async (req, res, next) => {
     }
 }
 
-usernameRouter.put('/update-user', checkUsernameExists, async (req, res) => {
+usernameRouter.put('/update-user', authenticateSession, checkUsernameExists, async (req, res) => {
     const {email, username, newUsername} = req.body;
     try {
         const user = await prisma.user.findUnique({
