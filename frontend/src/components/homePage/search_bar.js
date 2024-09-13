@@ -28,7 +28,7 @@ function Dropdown({ results }) {
 //remember to add hyperlink to profile banners to go to actual profiles
 function SearchedProfiles({ results }) {
   return (
-    <div id={searchCSS.body}>
+    <div id={searchCSS.results}>
       {results.map((result, id) => {
         return (
           <div className={searchCSS.card_container} key={result.id || id}>
@@ -92,9 +92,9 @@ function SearchBar() {
     try {
       const users = await axios.get("http://localhost:8080/search-bar/search/");
       const filtered_users = users.data.filter((user) => {
+         const fullName = user.firstName.concat("", user.lastName).toLowerCase().replaceAll(' ','')
         return (
-          user.firstName.toLowerCase().includes(search_value) ||
-          user.lastName.toLowerCase().includes(search_value)
+            fullName.includes(search_value.toLowerCase().replaceAll(' ', ''))
         );
       });
       set_results(filtered_users);
@@ -114,7 +114,7 @@ function SearchBar() {
   };
 
   return (
-    <div>
+    <div id = {searchCSS.body}>
       <div className={searchCSS.header_container}>
         <InputBar
           search={search}
