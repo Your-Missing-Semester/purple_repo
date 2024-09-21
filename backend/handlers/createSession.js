@@ -15,6 +15,7 @@ const loginHandler = ( async (request, response) => {
             return response.status(404).json({message: "user not found"}) 
         }
         const passwordMatch = await bcrypt.compare(password, user.password)
+        
         if (passwordMatch) {
             request.session.user = user.id
         }
