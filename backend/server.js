@@ -13,7 +13,7 @@ const {authenticateSession, userSession, userSessionRouter} = require('./routes/
 const usernameRouter = require('./routes/usernameRoute');
 const authHelper = require('./authHelper')
 const cookieParser = require('cookie-parser')
-const {loginHandler} = require('./handlers/createSession.js');
+const {loginHandler} = require('./handlers/loginHandler.js');
 
 app.use(express.json()); 
 app.use(cors({

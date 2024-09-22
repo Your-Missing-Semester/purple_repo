@@ -30,11 +30,13 @@ const authenticateSession = ( async (req, res, next) => {
         return res.status(401).json({message: "please login"})
     }
 
+    const id = req.session.user;
+    const user = await prisma.user.findUnique({
+        where: {id}
+    });
+
     const sid = req.signedCookies['connect.sid']
-    if (!sid) {
-        return res.status(404).json({message: "unauthenticated"});
-    }
-    if (sid !== req.session.id) {
+    if (!sid || sid !== req.session.id || !user) {
         return res.status(404).json({message: "unauthenticated"});
     }
     next()
