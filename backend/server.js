@@ -2,38 +2,39 @@ if (process.env.NODE_ENV !== 'production') { // can load .env file while server 
     require('dotenv').config();
 }
 
-const authHelper = require('./authHelper')
-const prisma = require('./database/db')
-const express = require('express') 
-const app = express()
-const port = 8080
+const express = require('express'); 
+const app = express();
+const cors = require('cors');
 const bcrypt = require('bcrypt')
-const session = require('express-session')
-const {PrismaSessionStore} = require('@quixo3/prisma-session-store')
-const {PrismaClient} = require('@prisma/client')
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+const port = 8080;
+const {authenticateSession, userSession, userSessionRouter} = require('./routes/userSession.js');
 const usernameRouter = require('./routes/usernameRoute');
-app.use(cors({ origin:'http://localhost:3000'}));
-app.use('/reset-username-form', usernameRouter)
+const authHelper = require('./authHelper')
+const cookieParser = require('cookie-parser')
+const {loginHandler} = require('./handlers/loginHandler.js');
 
 app.use(express.json()); 
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {secure: true},
-    store: new PrismaSessionStore(
-        new PrismaClient(),
-        {
-            checkPeriod: 2*60*1000,
-            dbRecordIdIsSessionId: true,
-            dbRecordIdFunction: undefined,
-        }
-    )
-}))
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+  }));
 
+app.use('/reset-username-form', usernameRouter);
+app.use('/user-session', userSessionRouter);
+app.use(userSession);
+app.use(cookieParser(process.env.SESSION_SECRET));
 
-app.get('/', (request, response) => { 
-    response.send ('my roots?');
+app.get('/test',authenticateSession, async (req, res) => {
+    return res.json({message: "checked cookie, all clear"})
+})
+
+app.post('/sign-in', loginHandler);
+
+app.get('/', authenticateSession, async (request, response) => { 
+    // response.send ('my roots?');
+    return response.status(200).json({cookie})
 });
 
 app.post('/sign-up', async (request,response) => { 
@@ -72,32 +73,6 @@ app.post('/sign-up', async (request,response) => {
     /* TODO */
     return response.status(200).send('sign up successful') 
 })
-
-app.post('/sign-in', async (request, response) => { 
-    const { email, password } = request.body;
-
-    if(!email || !password) return response.status(400).send('Username and password are missing');
-
-    const currentUser = await prisma.user.findFirst({
-        where: {
-            email
-        }
-    })
-
-    if(currentUser){
-        const passwordMatch = await bcrypt.compare(password, currentUser.password)
-
-       if(passwordMatch){
-            /* TODO */
-            return response.status(200).send('login successful') 
-       }else{
-            return response.status(400).send('invalid email or password')
-       }
-    }else{
-        return response.status(400).send('invalid email or password')
-    }
-})
-    
 
 app.listen(port, () =>{
     console.log('Server is listening on port', port);

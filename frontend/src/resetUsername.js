@@ -2,8 +2,6 @@ import {useState} from 'react';
 import FormCSS from "./form.module.css";
 import axios from 'axios';
 
-
-
 export default function ResetUsernameForm() {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
@@ -102,7 +100,7 @@ export default function ResetUsernameForm() {
                     </div>
                     <button
                         className = {FormCSS.form_btn}
-                        onClick = {handleSubmit}
+                        onClick = {handleSubmit()}
                         height = "100"
                         width = "100"
                         >Save Changes
